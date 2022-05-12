@@ -1,6 +1,6 @@
 package ru.job4j.atomicity;
 
-public class DCLSingleton {
+public final class DCLSingleton {
     private static volatile DCLSingleton inst;
 
     public static DCLSingleton instOf() {
