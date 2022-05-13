@@ -51,12 +51,11 @@ public class Wget implements Runnable {
 
     private static void validate(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException("""
-                    The number of arguments must be three.\r
-                    sample :\r
-                    first argument(URL) - "https://adress.net/files/111.txt"\r
-                    second argument(path to download) - c:/dir/file.txt\r
-                    third argument(MByte/s) - 1048576""");
+            throw new IllegalArgumentException("The number of arguments must be three.\r\n"
+                    + "sample :\r\n"
+                    + "first argument(URL) - \"https://adress.net/files/111.txt\"\r\n"
+                    + "second argument(path to download) - c:/dir/file.txt\r\n"
+                    + "third argument(MByte/s) - 1048576");
         }
     }
 
