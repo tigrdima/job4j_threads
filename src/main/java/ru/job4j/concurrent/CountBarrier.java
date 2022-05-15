@@ -18,10 +18,9 @@ public class CountBarrier {
 
     public void await() {
         synchronized (monitor) {
-            while (count >= total) {
+            while (count < total) {
                 try {
                     monitor.wait();
-                    count = 0;
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
