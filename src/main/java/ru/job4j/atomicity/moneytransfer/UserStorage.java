@@ -17,13 +17,11 @@ public class UserStorage {
     }
 
     public synchronized boolean update(User user) {
-        int id = user.getId();
-        User old = users.get(id);
-        return users.replace(id, user) == old;
+        return users.replace(user.getId(), user) != null;
     }
 
     public synchronized boolean delete(User user) {
-        return users.remove(user.getId()) == user;
+        return users.remove(user.getId(), user);
     }
 
     public synchronized void transfer(int fromId, int toId, int amount) {
