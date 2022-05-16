@@ -8,9 +8,9 @@ public class ParallelSearch {
         final Thread consumer = new Thread(
                 () -> {
                     while (!Thread.currentThread().isInterrupted()) {
-                        int index = queue.poll();
-                        System.out.println(index);
                         try {
+                            int index = queue.poll();
+                            System.out.println(index);
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
@@ -23,8 +23,8 @@ public class ParallelSearch {
                 () -> {
 
                     for (int index = 0; index != 3; index++) {
-                        queue.offer(index);
                         try {
+                            queue.offer(index);
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
