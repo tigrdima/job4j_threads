@@ -36,4 +36,5 @@ public class ParallelSearch {
         Thread.sleep(1500);
         consumer.interrupt();
     }
+
 }
