@@ -12,7 +12,7 @@ public class CacheTest {
     @Test
     public void add() {
         Cache cache = new Cache();
-        Base base = new Base(1, 1);
+        Base base = new Base(1, 0);
         base.setName("");
         assertTrue(cache.add(base));
         assertFalse(cache.add(base));
@@ -21,7 +21,7 @@ public class CacheTest {
     @Test
     public void delete() {
         Cache cache = new Cache();
-        Base base = new Base(1, 1);
+        Base base = new Base(1, 0);
         base.setName("");
         cache.delete(base);
         assertTrue(cache.add(base));
@@ -30,10 +30,15 @@ public class CacheTest {
     @Test
     public void update() {
         Cache cache = new Cache();
-        Base base = new Base(1, 1);
+        Base base = new Base(1, 0);
         base.setName("");
-        cache.delete(base);
-        assertTrue(cache.add(base));
-    }
+        cache.add(base);
 
+        base.setName("rrrr");
+        assertTrue(cache.update(base));
+
+        int ver = base.getId();
+        assertThat(ver, is(1));
+
+    }
 }
