@@ -21,14 +21,12 @@ public class ThreadPool {
                     try {
                         tasks.poll().run();
                     } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                        e.printStackTrace();
                     }
                 }
             });
             threads.add(thread);
-        }
-        for (Thread job : threads) {
-            new Thread(job).start();
+            thread.start();
         }
     }
 
@@ -37,21 +35,24 @@ public class ThreadPool {
     }
 
     public synchronized void shutdown() {
+        for (Thread job : threads) {
+            job.interrupt();
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
         ThreadPool pool = new ThreadPool(10);
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 40; i++) {
             int task = i;
             pool.work(() -> {
                 try {
                     System.out.println(Thread.currentThread().getName() + "Task:" + task);
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             });
-        }
+        } pool.shutdown();
     }
 }
