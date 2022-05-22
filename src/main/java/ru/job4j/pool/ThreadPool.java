@@ -1,10 +1,12 @@
 package ru.job4j.pool;
 
 import net.jcip.annotations.ThreadSafe;
+import ru.job4j.CASCount;
 import ru.job4j.concurrent.SimpleBlockingQueue;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @ThreadSafe
 public class ThreadPool {
@@ -21,7 +23,7 @@ public class ThreadPool {
                     try {
                         tasks.poll().run();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
             });
@@ -41,9 +43,10 @@ public class ThreadPool {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPool pool = new ThreadPool(10);
+        final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
+        ThreadPool pool = new ThreadPool(20);
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 30; i++) {
             int task = i;
             pool.work(() -> {
                 try {
@@ -53,6 +56,7 @@ public class ThreadPool {
                     Thread.currentThread().interrupt();
                 }
             });
-        } pool.shutdown();
+        }
+       pool.shutdown();
     }
 }
