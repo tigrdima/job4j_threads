@@ -39,7 +39,6 @@ public class CASCountTest {
                     }
                 }
         );
-
         thread2.start();
         thread.start();
         thread.join();
