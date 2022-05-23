@@ -5,6 +5,7 @@ import ru.job4j.CASCount;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNotEquals;
 
 public class ThreadPoolTest {
 
@@ -13,10 +14,10 @@ public class ThreadPoolTest {
         CASCount casCount = new CASCount();
         ThreadPool pool = new ThreadPool(10);
 
-        for (int i = 0; i < 20; i++) {
-           casCount.increment();
+        for (int i = 0; i < 50; i++) {
             pool.work(() -> {
                 try {
+                    casCount.increment();
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -24,7 +25,8 @@ public class ThreadPoolTest {
             });
         }
         pool.shutdown();
-
-        assertThat(casCount.get(), is(20));
+        Thread.sleep(1000);
+        assertNotEquals(30, casCount.get());
+        assertThat(casCount.get(), is(50));
     }
 }
