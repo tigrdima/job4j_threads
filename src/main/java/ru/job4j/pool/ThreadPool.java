@@ -40,6 +40,7 @@ public class ThreadPool {
     }
 
     public static void main(String[] args) throws InterruptedException {
+
         ThreadPool pool = new ThreadPool(5);
 
         for (int i = 0; i < 20; i++) {
