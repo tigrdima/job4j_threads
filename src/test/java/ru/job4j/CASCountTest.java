@@ -46,6 +46,6 @@ public class CASCountTest {
         thread2.interrupt();
         thread2.join();
 
-        assertThat(stack.pop(), is(25));
+        assertThat(stack.pop(), is(15));
     }
 }
