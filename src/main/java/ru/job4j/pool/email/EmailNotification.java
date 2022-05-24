@@ -11,7 +11,7 @@ public class EmailNotification {
                 () -> send(
                         "Notification" + user.getUserName() + "to email " +  user.geteMail(),
                         "Add a new event to" + user.getUserName(),
-                        "qq@qq.ru")
+                        user.geteMail())
         );
     }
 
