@@ -19,23 +19,24 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
 
     @Override
     protected Integer compute() {
-        if (to - from <= 10 || to == array.length) {
+
+        if (to - from <= 10) {
             return merge();
         }
+        int mid = to - from;
 
-        int mid = array.length / 2;
-        ParallelSearchIndex<T> leftSearch = new ParallelSearchIndex<>(array, 0, mid, value);
-        ParallelSearchIndex<T> rightSearch = new ParallelSearchIndex<>(array, mid + 1, array.length, value);
+        ParallelSearchIndex<T> leftSearch = new ParallelSearchIndex<>(array, from, from + mid / 2, value);
+        ParallelSearchIndex<T> rightSearch = new ParallelSearchIndex<>(array, mid / 2 + 1, to, value);
 
         leftSearch.fork();
         rightSearch.fork();
         int left = leftSearch.join();
         int right = rightSearch.join();
-        return left + right;
+        return Math.max(left, right);
     }
 
-    private Integer merge() {
-        Integer rsl = null;
+    private int merge() {
+        int rsl = -1;
         for (int i = from; i < to; i++) {
             if (array[i].equals(value)) {
                 rsl = i;
@@ -46,12 +47,12 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
     }
 
     public static void main(String[] args) {
-        String[] array = new String[40];
+        String[] array = new String[30];
         for (int i = 0; i < array.length; i++) {
             array[i] = "A" + i;
         }
         ForkJoinPool pool = new ForkJoinPool();
-        ParallelSearchIndex<String> parallelSearchIndex = new ParallelSearchIndex<>(array, 0, array.length, "a8");
+        ParallelSearchIndex<String> parallelSearchIndex = new ParallelSearchIndex<>(array, 0, array.length, "A7");
         System.out.println(pool.invoke(parallelSearchIndex));
     }
 }
