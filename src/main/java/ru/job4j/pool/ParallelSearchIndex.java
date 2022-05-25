@@ -21,7 +21,6 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
         if (to - from <= 10) {
             return merge();
         }
-
         int mid = (from + to) / 2;
         ParallelSearchIndex<T> leftSearch = new ParallelSearchIndex<>(array, from,  mid, value);
         ParallelSearchIndex<T> rightSearch = new ParallelSearchIndex<>(array, mid + 1, to, value);

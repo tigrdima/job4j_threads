@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class ParallelSearchIndexTest {
 
     @Test
-    public void searchMatched() {
+    public void searchMatchedRecursiveTaskSearch() {
         String[] array = new String[40];
         for (int i = 0; i < array.length; i++) {
             array[i] = "A" + i;
@@ -19,13 +19,35 @@ public class ParallelSearchIndexTest {
     }
 
     @Test
-    public void searchNotMatched() {
+    public void searchNotMatchedRecursiveTaskSearch() {
         String[] array = new String[40];
         for (int i = 0; i < array.length; i++) {
             array[i] = "A" + i;
         }
         int expect = -1;
         int rsl =  ParallelSearchIndex.search(array, "a37");
+        assertThat(rsl, is(expect));
+    }
+
+    @Test
+    public void searchMatchedLineTaskSearch() {
+        String[] array = new String[10];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = "A" + i;
+        }
+        int expect = 7;
+        int rsl =  ParallelSearchIndex.search(array, "A7");
+        assertThat(rsl, is(expect));
+    }
+
+    @Test
+    public void searchNotMatchedLineTaskSearch() {
+        String[] array = new String[10];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = "A" + i;
+        }
+        int expect = -1;
+        int rsl =  ParallelSearchIndex.search(array, "A11");
         assertThat(rsl, is(expect));
     }
 }
