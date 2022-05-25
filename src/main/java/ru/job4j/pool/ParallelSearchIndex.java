@@ -14,19 +14,17 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
         this.value = value;
         this.from = from;
         this.to = to;
-
     }
 
     @Override
     protected Integer compute() {
-
         if (to - from <= 10) {
             return merge();
         }
-        int mid = to - from;
 
-        ParallelSearchIndex<T> leftSearch = new ParallelSearchIndex<>(array, from, from + mid / 2, value);
-        ParallelSearchIndex<T> rightSearch = new ParallelSearchIndex<>(array, mid / 2 + 1, to, value);
+        int mid = (from + to) / 2;
+        ParallelSearchIndex<T> leftSearch = new ParallelSearchIndex<>(array, from,  mid, value);
+        ParallelSearchIndex<T> rightSearch = new ParallelSearchIndex<>(array, mid + 1, to, value);
 
         leftSearch.fork();
         rightSearch.fork();
@@ -46,13 +44,10 @@ public class ParallelSearchIndex<T> extends RecursiveTask<Integer> {
         return rsl;
     }
 
-    public static void main(String[] args) {
-        String[] array = new String[30];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = "A" + i;
-        }
+    public static <T> int search(T[] array, T value) {
+        int from = 0;
+        int to = array.length;
         ForkJoinPool pool = new ForkJoinPool();
-        ParallelSearchIndex<String> parallelSearchIndex = new ParallelSearchIndex<>(array, 0, array.length, "A7");
-        System.out.println(pool.invoke(parallelSearchIndex));
+        return pool.invoke(new ParallelSearchIndex<>(array, from, to, value));
     }
 }
