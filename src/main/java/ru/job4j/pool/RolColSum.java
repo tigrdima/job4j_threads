@@ -21,18 +21,4 @@ public class RolColSum {
             this.colSum = colSum;
         }
     }
-
-//    public static Sums[] sum(int[][] matrix) {
-//
-//        for (int i = 0; i < matrix.length; i++) {
-//            for (int j = 0; j < matrix[i].length; j++) {
-//
-//            }
-//        }
-//
-//    }
-//
-//    public static Sums[] asyncSum(int[][] matrix) {
-//
-//    }
 }
