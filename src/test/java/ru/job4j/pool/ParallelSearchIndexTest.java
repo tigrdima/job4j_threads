@@ -14,7 +14,7 @@ public class ParallelSearchIndexTest {
             array[i] = "A" + i;
         }
         int expect = 37;
-        int rsl =  ParallelSearchIndex.search(array, "A37");
+        int rsl =  ParallelSearchIndex.rslSearch(array, "A37");
         assertThat(rsl, is(expect));
     }
 
@@ -25,7 +25,7 @@ public class ParallelSearchIndexTest {
             array[i] = "A" + i;
         }
         int expect = -1;
-        int rsl =  ParallelSearchIndex.search(array, "a37");
+        int rsl =  ParallelSearchIndex.rslSearch(array, "a37");
         assertThat(rsl, is(expect));
     }
 
@@ -36,7 +36,7 @@ public class ParallelSearchIndexTest {
             array[i] = "A" + i;
         }
         int expect = 7;
-        int rsl =  ParallelSearchIndex.search(array, "A7");
+        int rsl =  ParallelSearchIndex.rslSearch(array, "A7");
         assertThat(rsl, is(expect));
     }
 
@@ -47,7 +47,7 @@ public class ParallelSearchIndexTest {
             array[i] = "A" + i;
         }
         int expect = -1;
-        int rsl =  ParallelSearchIndex.search(array, "A11");
+        int rsl =  ParallelSearchIndex.rslSearch(array, "A11");
         assertThat(rsl, is(expect));
     }
 }
